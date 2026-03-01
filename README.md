@@ -1,15 +1,13 @@
-# ⚽ Football Analytics Dashboard – Extended Version
+## 🚀 Extended by Kartish Reddy Anugu
 
-This repository extends the original open-source project by adding scalable data ingestion and preprocessing capabilities.
+This fork extends the original project with a scalable ETL pipeline capable of processing **530,000+ football match events** across multiple competitions and seasons.
 
-## 🚀 My Enhancements
-
-- Scaled event processing to **530,000+ match events**
-- Implemented deduplicated ETL pipeline across multiple competitions
-- Added multi-season aggregation support
-- Optimized transformations using vectorized Pandas operations
-- Added structured CSV storage for reusable analytics workflows
-- Enhanced caching using Streamlit’s `@st.cache_data`
+### Enhancements
+- Multi-competition ingestion
+- Deduplicated event pipeline
+- Batch processing of 500K+ records
+- Optimized Pandas transformations
+- Structured CSV storage for scalable analytics
 
 ## 📊 Data Scale Achieved
 

@@ -171,6 +171,6 @@ def build_and_save_passing_events(match_ids: Iterable[int]) -> pd.DataFrame:
             out = out_new
     else:
         out = out_new
-
     save_csv(out, csv_path)
+    print(f"Total passing events processed so far: {len(out):,}")
     return out

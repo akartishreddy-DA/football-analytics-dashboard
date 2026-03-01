@@ -410,108 +410,40 @@ def run() -> None:
     with tab_overview:
         st.header("Match Overview")
 
-        left_meta = []
-        if comp_col and selected_comp != "(All)":
-            left_meta.append(selected_comp)
-        if season_col and selected_season != "(All)":
-            left_meta.append(str(selected_season))
-        meta_str = " • ".join(left_meta) if left_meta else "All competitions/seasons"
+        # 🔥 Enhanced Core Performance Metrics (Match-Level)
+        match_passes = passes[passes["match_id"] == match_id].copy()
 
-        # Teams/date
-        if {"home_team", "away_team"} <= set(ms.columns):
-            h_team = ms["home_team"].dropna().astype(str).head(1).tolist()
-            a_team = ms["away_team"].dropna().astype(str).head(1).tolist()
-            h_team = h_team[0] if h_team else None
-            a_team = a_team[0] if a_team else None
-        else:
-            teams_order = ms["team.name"].dropna().unique().tolist() if "team.name" in ms.columns else []
-            h_team, a_team = (teams_order + [None, None])[:2]
-
-        match_dt = (
-            pd.to_datetime(ms["match_date"].dropna().iloc[0]).date()
-            if "match_date" in ms.columns and ms["match_date"].notna().any()
-            else None
-        )
-
-        goals_by_team = (
-            ms.groupby("team.name")["is_goal"].sum().astype(int).to_dict()
-            if "is_goal" in ms.columns and "team.name" in ms.columns
-            else {}
-        )
-        xg_by_team = (
-            ms.groupby("team.name")["xg"].sum().round(2).to_dict()
-            if "xg" in ms.columns and "team.name" in ms.columns
-            else {}
-        )
-
-        h = h_team or next(iter(goals_by_team.keys()), "Home")
-        a = a_team or (list(goals_by_team.keys())[1] if len(goals_by_team) > 1 else "Away")
-
-        h_goals = int(goals_by_team.get(h, 0))
-        a_goals = int(goals_by_team.get(a, 0))
-        h_xg = float(xg_by_team.get(h, 0.0))
-        a_xg = float(xg_by_team.get(a, 0.0))
-
-        center = st.columns([1, 6, 1])[1]
-        with center:
-            caption = meta_str if match_dt is None else f"{meta_str} • {match_dt}"
-            st.markdown(
-                f"""
-                <div style="text-align:center;">
-                <div style="font-size:28px; font-weight:700; line-height:1.2; margin-bottom:2px;">
-                    {h} vs. {a}
-                </div>
-                <div style="font-size:44px; font-weight:900; line-height:1.0; color:#e5e7eb; font-variant-numeric: tabular-nums;">
-                    {h_goals} - {a_goals}
-                </div>
-                <div style="margin-top:6px; opacity:0.8; font-size:14px;">
-                    {caption}
-                </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
+        # Defensive actions from passing events
+        def_actions = 0
+        if "type_name" in match_passes.columns:
+            def_actions = len(
+                match_passes[
+                    match_passes["type_name"].isin(["Tackle", "Interception"])
+                ]
             )
 
-        c1, c2, c3, c4 = st.columns(4)
-        with c1:
-            st.metric(f"xG , {h}", f"{h_xg:.2f}")
-        with c2:
-            st.metric(f"xG , {a}", f"{a_xg:.2f}")
-        with c3:
-            st.metric(f"Goals , {h}", h_goals)
-        with c4:
-            st.metric(f"Goals , {a}", a_goals)
-
+        # Shot-based metrics
         total_shots = len(ms)
-        avg_xg = float(ms["xg"].mean()) if "xg" in ms.columns and total_shots else 0.0
-        conv = f"{(100 * ms['is_goal'].sum() / total_shots):.1f}%" if total_shots and "is_goal" in ms.columns else "0%"
-        shooters = ms["player.name"].nunique() if "player.name" in ms.columns else 0
+        total_goals = int(ms["is_goal"].sum()) if "is_goal" in ms.columns else 0
+        scoring_eff = round(total_goals / total_shots, 3) if total_shots > 0 else 0
 
-        g1, g2, g3, g4 = st.columns(4)
-        with g1:
+        st.markdown("### ⚡ Core Performance Metrics")
+
+        m1, m2, m3, m4 = st.columns(4)
+
+        with m1:
             st.metric("Total Shots", total_shots)
-        with g2:
-            st.metric("Avg xG per Shot", f"{avg_xg:.2f}")
-        with g3:
-            st.metric("Conversion %", conv)
-        with g4:
-            st.metric("Players with shots", shooters)
 
-        st.subheader("Cumulative xG Timeline")
-        timeline = cumulative_xg_plot(ms)
-        try:
-            timeline.update_layout(
-                height=340 if compact else 520,
-                margin=dict(l=20, r=20, t=30, b=40),
-                legend=dict(orientation="h", y=-0.2),
-            )
-        except Exception:
-            pass
-        plot(timeline)
+        with m2:
+            st.metric("Goals", total_goals)
+
+        with m3:
+            st.metric("Scoring Efficiency", scoring_eff)
+
+        with m4:
+            st.metric("Defensive Actions", def_actions)
 
         st.markdown("---")
-        st.caption(f"Data loaded from {len(shots)} total shots across {len(match_ids)} matches")
-
     # ───────────────────── xG Model & Pitch ─────────────────────
     with tab_xg_pitch:
         st.header("Shot Map & xG Model")
@@ -810,4 +742,5 @@ def run() -> None:
 
 
 # Streamlit entrypoint
-run()
+if __name__ == "__main__":
+    run()

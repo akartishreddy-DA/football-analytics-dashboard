@@ -16,6 +16,19 @@ This fork extends the original project with a scalable ETL pipeline capable of p
 - Matches Processed: 400+
 - Processing Model: Batch ETL with deduplication
 
+## 🚀 Active Development – Advanced Analytics Expansion
+
+This project is currently being enhanced with advanced analytical features to improve scalability, usability, and decision-support capabilities.
+
+### In Progress
+- Side-by-side comparative team analytics dashboard
+- Dynamic match filtering (minute, team, player, event-level)
+- Automated match performance summary generation
+- Optimized ETL and caching workflows for large-scale datasets (500K+ events)
+- Improved interactive visualizations and structured tab navigation
+
+The goal is to evolve this into a comprehensive football analytics framework capable of supporting data-driven insights at scale.
+
 # ⚽ Football Analytics Dashboard
 
 [![Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://football-xgcloud.streamlit.app/)
@@ -28,7 +41,7 @@ Professional multi-tab football analytics dashboard featuring **Expected Goals (
 
 ```bash
 # Clone and setup
-git clone https://github.com/itzmore-mph/football-analytics-dashboard.git
+git clone https://github.com/akartishreddy-DA/football-analytics-dashboard.git
 cd football-analytics-dashboard
 make setup && source .venv/bin/activate  # Windows: .venv\Scripts\activate
 make install
@@ -41,7 +54,7 @@ make demo && make run
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/itzmore-mph/football-analytics-dashboard.git
+git clone https://github.com/akartishreddy-DA/football-analytics-dashboard.git
 cd football-analytics-dashboard
 
 # 2. Create virtual environment
@@ -410,16 +423,18 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
-## 📬 Contact
+## 👨‍💻 Maintainer
 
-**👨‍💻 Moritz Philipp Haaf, BSc MA**
+**Kartish Reddy Anugu**
 
-**📩 Email:** [itzmore.dev@gmail.com](mailto:itzmore.dev@gmail.com)
+This fork extends the original open-source project with scalable ETL and advanced analytics capabilities.
 
-**🔗 Portfolio Website:** [https://itzmore.dev](https://itzmore.dev)
+For professional inquiries, feel free to connect via GitHub or LinkedIn.
 
-**🔗 GitHub:** [https://github.com/itzmore-mph](https://github.com/itzmore-mph)
+**📩 Email:** Akartishreddy@gmail.com
 
-**🔗 LinkedIn:** [https://linkedin.com/in/moritz-philipp-haaf/](https://linkedin.com/in/moritz-philipp-haaf/)  
+**🔗 Portfolio Website:** https://endearing-maamoul-9eb01b.netlify.app/
+
+**🔗 LinkedIn:** https://www.linkedin.com/in/kartish/ 
 
 🚀 **If you found this useful, give this repo a ⭐ and share your feedback!**

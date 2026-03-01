@@ -11,6 +11,13 @@ This repository extends the original open-source project by adding scalable data
 - Added structured CSV storage for reusable analytics workflows
 - Enhanced caching using Streamlit’s `@st.cache_data`
 
+## 📊 Data Scale Achieved
+
+- Total Passing Events Processed: **530,860+**
+- Competitions: La Liga, Bundesliga, UCL, etc.
+- Matches Processed: 400+
+- Processing Model: Batch ETL with deduplication
+
 # ⚽ Football Analytics Dashboard
 
 [![Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://football-xgcloud.streamlit.app/)

@@ -1,3 +1,16 @@
+# ⚽ Football Analytics Dashboard – Extended Version
+
+This repository extends the original open-source project by adding scalable data ingestion and preprocessing capabilities.
+
+## 🚀 My Enhancements
+
+- Scaled event processing to **530,000+ match events**
+- Implemented deduplicated ETL pipeline across multiple competitions
+- Added multi-season aggregation support
+- Optimized transformations using vectorized Pandas operations
+- Added structured CSV storage for reusable analytics workflows
+- Enhanced caching using Streamlit’s `@st.cache_data`
+
 # ⚽ Football Analytics Dashboard
 
 [![Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://football-xgcloud.streamlit.app/)
